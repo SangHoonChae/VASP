@@ -1,0 +1,21 @@
+rm -f energy_conv_test.dat
+
+for a in $(seq 100 10 600)
+do
+	rm -f OSZICAR OUTCAR CHG CHGCAR WAVECAR
+	cat > INCAR <<EOF
+
+SYSTEM = fcc si energy convergence test for DOS
+ENCUT = $a
+
+ISMEAR = -5
+LORBIT = 11
+LWAVE = .FALSE.
+LCHARG = .FALSE.
+EOF
+
+mpirun.openmpi --bind-to core -np 2 ~/build/VASP/vasp.6.5.1/bin/openmpi/vasp_std
+energy=$(grep 'F=' OSZICAR)
+echo $a $energy >> energy_conv_test.dat
+
+done
