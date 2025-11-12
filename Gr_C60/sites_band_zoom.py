@@ -2,8 +2,15 @@ import pandas as pd
 import re
 import matplotlib.pyplot as plt
 
-Efer=[-3.0744,-3.0754,-3.0740,-3.0742,-3.0723,-3.0760,-3.0763,-3.0750,-5.0187,-3.3521]
-
+Efer=[-3.0744,-3.0754,-3.0740,-3.0742,-3.0763,-3.0723,-3.0760,-3.0750,]
+atp=Efer[0]
+bri=Efer[1]
+ptg=Efer[2]
+ptgr=Efer[3]
+ring=Efer[4]
+ring2=Efer[5]
+ring3=Efer[6]
+trp=Efer[7]
 # ===== 파일 경로와 EF값만 수정 =====
 file_path = "/home/csh/Desktop/VESTA/reverse_sandwich/ring_ring/band_ownership.txt"   # band_ownership.txt 파일 경로
 E_fermi = -2.77738001                  # OUTCAR에서 grep "E-fermi"로 얻은 값
@@ -34,7 +41,7 @@ df = pd.DataFrame(data)
 colors = {"GRAPHENE": "blue", "C60": "green", "HYBRID": "red"}
 
 # ===== 플롯 (band index vs E) =====
-plt.figure(figsize=(9,6))
+plt.figure(figsize=(6,4))
 for label, group in df.groupby("Label"):
     plt.scatter(group["band"], group["Energy(eV)"], 
                 c=colors[label], label=label, s=10, alpha=0.7)
@@ -44,9 +51,23 @@ plt.axhline(0, color="black", linestyle="--", linewidth=0.8)
 
 plt.xlabel("Band index")
 plt.ylabel("Energy - E$_F$ (eV)")
-plt.axis([510.0,610.0,-3.0,3.0])
+plt.axis([560.0,570.0,-0.25,0.25])
+
+points = [563, 564, 565, 566]
+
+for p in points:
+    row = df.loc[df["band"] == p, ["band", "Energy(eV)"]]
+    if not row.empty:
+        x = int(row["band"].values[0])
+        y = row["Energy(eV)"].values[0]
+
+        # 그래프에 좌표 찍기
+        plt.scatter(x, y,color='blue', zorder=5)
+        plt.text(x, y + 0.01 , f"{y:.3f}", ha='center', fontsize=9)
+
 plt.title("RING-Graphene-RING Band Ownership")
 plt.legend()
 plt.tight_layout()
 plt.grid(linestyle='--')
+#plt.savefig('ATP_zoom')
 plt.show()

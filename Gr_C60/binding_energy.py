@@ -48,7 +48,7 @@ area = 20**2
 colors = ('limegreen','violet','orange','dodgerblue','red','green','blue','brown')
 
 plt.scatter(x, y, s=area, c=colors)
-plt.axis([2.95, 3.25, 0.74, 0.84])
+plt.axis([2.7, 3.7, 0.7, 0.9])
 # text
 plt.text(x[0]-0.01, y[0]+0.007, 'ATP', fontdict={'size': 12})
 plt.text(x[1]-0.01, y[1]+0.007, 'BRI', fontdict={'size': 12})

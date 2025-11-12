@@ -3,8 +3,8 @@ import re
 import matplotlib.pyplot as plt
 
 # ===== 파일 경로 & Fermi 에너지 설정 =====
-file_path = "/home/ufo/VASP/band_ownership/C60_bandown.txt"   # 네 파일 이름
-E_fermi = -4.679019                 # OUTCAR에서 grep "E-fermi"로 얻은 값
+file_path = "/home/csh/Desktop/VESTA/reverse_sandwich/ring_ring/band_ownership.txt"   # 네 파일 이름
+E_fermi = -2.77738001                 # OUTCAR에서 grep "E-fermi"로 얻은 값
 
 # ===== 파일 읽기 =====
 data = []
